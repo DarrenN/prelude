@@ -2,9 +2,11 @@
 (prelude-require-packages '(twilight-theme
                             paredit
                             js2-mode
-                            auto-complete
+                            ;auto-complete
+                            company
                             ac-js2
                             ac-cider-compliment
+                            company-cider
                             yasnippet))
 
 ;; Better fonts for hi-res monitor
@@ -43,21 +45,18 @@
   (setq initial-major-mode 'clojure-mode))
 
 ;; Projectile settings for fast nav
-
 ; Quickly navigate projects using Projectile (C-c p C-h for available commands)
 (projectile-global-mode)
 
 ; Projectile shows full relative paths
 (setq projectile-show-paths-function 'projectile-hashify-with-relative-paths)
 
+;; company-mode
+(add-hook 'after-init-hook 'global-company-mode)
+(eval-after-load 'company '(add-to-list 'company-backends 'company-cider))
+
 ;; yasnippet
 (yas-global-mode 1)
-
-;; Auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
-(ac-set-trigger-key "TAB")
-(ac-set-trigger-key "<tab>")
 
 ;; Clojure
 (setq auto-mode-alist (cons '("\\.edn$" . clojure-mode) auto-mode-alist))  ; *.edn are Clojure files
@@ -73,17 +72,17 @@
      (font-lock-add-keywords 'js2-mode
                              `(("\\(function *\\)(" (0 (progn (compose-region (match-beginning 1) (match-end 1) "ƒ") nil)))))))
 
-;; Auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
-(ac-set-trigger-key "TAB")
-(ac-set-trigger-key "<tab>")
+;; ;; Auto-complete
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+;; (ac-set-trigger-key "TAB")
+;; (ac-set-trigger-key "<tab>")
 
-;; Auto-complete hooks
-(add-hook 'js2-mode-hook (lambda () (interactive) (auto-complete-mode)))
-(add-hook 'coffee-mode-hook (lambda () (interactive) (auto-complete-mode)))
-(add-hook 'ruby-mode-hook (lambda () (interactive) (auto-complete-mode)))
-(add-hook 'scss-mode-hook (lambda () (interactive) (auto-complete-mode)))
+;; ;; Auto-complete hooks
+;; (add-hook 'js2-mode-hook (lambda () (interactive) (auto-complete-mode)))
+;; (add-hook 'coffee-mode-hook (lambda () (interactive) (auto-complete-mode)))
+;; (add-hook 'ruby-mode-hook (lambda () (interactive) (auto-complete-mode)))
+;; (add-hook 'scss-mode-hook (lambda () (interactive) (auto-complete-mode)))
 
 ;; Whitespace handling
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
