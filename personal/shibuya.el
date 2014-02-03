@@ -84,5 +84,7 @@
 ;; (add-hook 'ruby-mode-hook (lambda () (interactive) (auto-complete-mode)))
 ;; (add-hook 'scss-mode-hook (lambda () (interactive) (auto-complete-mode)))
 
-;; Whitespace handling
+;; Keep the good whitespace
+(setq require-final-newline t)
+;; Clean Whitespace handling
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
