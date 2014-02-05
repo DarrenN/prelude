@@ -2,6 +2,7 @@
 (prelude-require-packages '(twilight-theme
                             paredit
                             js2-mode
+                            json-mode
                             ;auto-complete
                             company
                             ac-js2
@@ -71,6 +72,10 @@
      (setq-default js2-basic-offset 2)
      (font-lock-add-keywords 'js2-mode
                              `(("\\(function *\\)(" (0 (progn (compose-region (match-beginning 1) (match-end 1) "ƒ") nil)))))))
+
+;; web-mode
+(add-to-list 'auto-mode-alist '("\\.rhtml?\\'" . web-mode))
+(setq web-mode-code-indent-offset 2)
 
 ;; ;; Auto-complete
 ;; (require 'auto-complete-config)
