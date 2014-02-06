@@ -10,11 +10,6 @@
                             company-cider
                             yasnippet))
 
-;; Better fonts for hi-res monitor
-(set-face-attribute 'default nil :height 150)
-(set-default-font "Consolas-16")
-(load-theme 'twilight t)
-
 ;; Visual settings
 (global-linum-mode t)                                                      ; Always show line numbers on left
 (setq linum-format "%4d ")                                                 ; Line numbers gutter should be four characters wide
@@ -24,9 +19,6 @@
 
 ; Mode line shows column numbers
 (column-number-mode 1)
-
-; Tab width of 2
-(setq-default tab-width 2)
 
 ; Emacs prompts should accept "y" or "n" instead of the full word
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -70,8 +62,12 @@
 (eval-after-load 'js2-mode
   '(progn
      (setq-default js2-basic-offset 2)
+     (set-variable 'indent-tabs-mode nil)
      (font-lock-add-keywords 'js2-mode
                              `(("\\(function *\\)(" (0 (progn (compose-region (match-beginning 1) (match-end 1) "ƒ") nil)))))))
+
+;; CoffeeScript
+(custom-set-variables '(coffee-tab-width 2))
 
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.rhtml?\\'" . web-mode))
