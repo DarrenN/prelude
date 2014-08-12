@@ -10,6 +10,9 @@
                             company-cider
                             yasnippet))
 
+;; NO AUTOSAVE!
+(setq auto-save-default nil)
+
 ;; Visual settings
 (global-linum-mode t)
 ; Always show line numbers on left
@@ -51,9 +54,6 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (eval-after-load 'company '(add-to-list 'company-backends 'company-cider))
 
-;; yasnippet
-(yas-global-mode 1)
-
 ;; Clojure
 (setq auto-mode-alist (cons '("\\.edn$" . clojure-mode) auto-mode-alist))  ; *.edn are Clojure files
 (setq auto-mode-alist (cons '("\\.cljs$" . clojure-mode) auto-mode-alist)) ; *.cljs are Clojure files
@@ -77,6 +77,9 @@
 (setq web-mode-code-indent-offset 2)
 (setq web-mode-css-indent-offset 2)
 (setq web-mode-markup-indent-offset 2)
+
+;; yasnippet
+(yas-global-mode 1)
 
 ;; ;; Auto-complete
 ;; (require 'auto-complete-config)
