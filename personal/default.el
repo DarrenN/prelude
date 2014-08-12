@@ -11,9 +11,9 @@
                             yasnippet))
 
 ;; Visual settings
-(global-linum-mode t)                                                      ; Always show line numbers on left
-(setq linum-format "%4d ")                                                 ; Line numbers gutter should be four characters wide
-
+(global-linum-mode t)
+; Always show line numbers on left
+(setq linum-format "%4d ")
 ; Mode line shows line numbers
 (line-number-mode 1)
 
@@ -28,6 +28,9 @@
 
 ;; Fuck you guru
 (setq prelude-guru nil)
+
+;; NO AUTOSAVE
+(setq auto-save-default nil)
 
 ;; No flyspell
 (setq prelude-flyspell nil)
