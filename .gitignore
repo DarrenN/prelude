@@ -21,3 +21,5 @@ session*
 .cask
 personal/dazza.el
 personal/shibuya.el
+tramp
+/var/pcache

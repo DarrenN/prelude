@@ -100,7 +100,6 @@ This functions should be added to the hooks of major modes for programming."
 
 ;; show the name of the current function definition in the modeline
 (require 'which-func)
-(add-to-list 'which-func-modes 'ruby-mode)
 (which-function-mode 1)
 
 ;; in Emacs 24 programming major modes generally derive from a common
@@ -112,6 +111,11 @@ This functions should be added to the hooks of major modes for programming."
 ;;     (add-hook 'prelude-prog-mode-hook 'my-prog-mode-defaults t)
 ;;
 ;; (the final optional t sets the *append* argument)
+
+;; smart curly braces
+(sp-pair "{" nil :post-handlers
+         '(((lambda (&rest _ignored)
+              (prelude-smart-open-line-above)) "RET")))
 
 (defun prelude-prog-mode-defaults ()
   "Default coding hook, useful with any programming language."
