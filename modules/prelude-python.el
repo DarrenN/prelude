@@ -33,6 +33,12 @@
 
 ;;; Code:
 
+(prelude-require-package 'anaconda-mode)
+
+(when (boundp 'company-backends)
+  (prelude-require-package 'company-anaconda)
+  (add-to-list 'company-backends 'company-anaconda))
+
 (require 'prelude-programming)
 
 ;; Copy pasted from ruby-mode.el
@@ -77,10 +83,13 @@
 (defun prelude-python-mode-defaults ()
   "Defaults for Python programming."
   (subword-mode +1)
+  (anaconda-mode)
+  (eldoc-mode)
   (setq-local electric-layout-rules
               '((?: . (lambda ()
-                        (if (python-info-statement-starts-block-p)
-                            'after)))))
+                        (and (zerop (first (syntax-ppss)))
+                             (python-info-statement-starts-block-p)
+                             'after)))))
   (when (fboundp #'python-imenu-create-flat-index)
     (setq-local imenu-create-index-function
                 #'python-imenu-create-flat-index))
@@ -91,6 +100,7 @@
 
 (add-hook 'python-mode-hook (lambda ()
                               (run-hooks 'prelude-python-mode-hook)))
+
 (provide 'prelude-python)
 
 ;;; prelude-python.el ends here
