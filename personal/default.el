@@ -3,11 +3,8 @@
                             paredit
                             js2-mode
                             json-mode
-                            ;auto-complete
                             company
                             ac-js2
-                            ac-cider-compliment
-                            company-cider
                             yasnippet))
 
 ;; NO AUTOSAVE!
@@ -15,8 +12,10 @@
 
 ;; Visual settings
 (global-linum-mode t)
+
 ; Always show line numbers on left
 (setq linum-format "%4d ")
+
 ; Mode line shows line numbers
 (line-number-mode 1)
 
@@ -30,10 +29,7 @@
 (setq visible-bell nil)
 
 ;; Fuck you guru
-(setq prelude-guru nil)
-
-;; NO AUTOSAVE
-(setq auto-save-default nil)
+;(setq prelude-guru nil)
 
 ;; No flyspell
 (setq prelude-flyspell nil)
@@ -52,7 +48,7 @@
 
 ;; company-mode
 (add-hook 'after-init-hook 'global-company-mode)
-(eval-after-load 'company '(add-to-list 'company-backends 'company-cider))
+;(eval-after-load 'company '(add-to-list 'company-backends))
 
 ;; Clojure
 (setq auto-mode-alist (cons '("\\.edn$" . clojure-mode) auto-mode-alist))  ; *.edn are Clojure files
@@ -67,7 +63,7 @@
      (setq-default js2-basic-offset 2)
      (set-variable 'indent-tabs-mode nil)
      (font-lock-add-keywords 'js2-mode
-                             `(("\\(function *\\)(" (0 (progn (compose-region (match-beginning 1) (match-end 1) "ƒ") nil)))))))
+                             `(("\\(function *\\)(" (0 (progn (compose-region (match-beginning 1) (match-end 1) "λ") nil)))))))
 
 ;; CoffeeScript
 (custom-set-variables '(coffee-tab-width 2))
@@ -99,5 +95,6 @@
 
 ;; Keep the good whitespace
 (setq require-final-newline t)
+
 ;; Clean Whitespace handling
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
