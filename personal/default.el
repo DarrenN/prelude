@@ -3,6 +3,8 @@
                             paredit
                             js2-mode
                             json-mode
+                            racket-mode
+                            markdown-mode
                             company
                             ac-js2
                             yasnippet))
