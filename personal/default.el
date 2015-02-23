@@ -71,14 +71,16 @@
 (custom-set-variables '(coffee-tab-width 2))
 
 ;; web-mode
+(require 'web-mode)
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
   (add-to-list 'auto-mode-alist '("\\.rhtml?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.hbs?\\'" . web-mode))
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-markup-indent-offset 2)
 )
-(add-hook 'web-mode-hook  'my-web-mode-hook)
+(add-hook 'web-mode-hook 'my-web-mode-hook)
 
 ;; yasnippet
 (yas-global-mode 1)
