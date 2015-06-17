@@ -7,7 +7,11 @@
                             markdown-mode
                             company
                             ac-js2
-                            yasnippet))
+                            yasnippet
+                            editorconfig))
+
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(load "editorconfig")
 
 ;; NO AUTOSAVE!
 (setq auto-save-default nil)
