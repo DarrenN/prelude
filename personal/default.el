@@ -10,6 +10,10 @@
                             yasnippet
                             editorconfig))
 
+;; EditorConfig settings
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+(add-to-list 'load-path "/usr/local/opt/editorconfig-emacs/share/emacs/site-lisp/editorconfig")
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (load "editorconfig")
 
@@ -39,6 +43,13 @@
 
 ;; No flyspell
 (setq prelude-flyspell nil)
+
+;; UTF8 All the things
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-language-environment 'utf-8)
 
 ;; General startup
 (setq initial-scratch-message nil)                                         ; *scratch* starts empty
