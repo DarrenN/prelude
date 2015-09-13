@@ -80,7 +80,12 @@
      (setq-default js2-basic-offset 2)
      (set-variable 'indent-tabs-mode nil)
      (font-lock-add-keywords 'js2-mode
-                             `(("\\(function *\\)(" (0 (progn (compose-region (match-beginning 1) (match-end 1) "λ") nil)))))))
+                             `(("\\(function *\\)("
+                                (0 (progn
+                                     (compose-region
+                                      (match-beginning 1)
+                                      (match-end 1)
+                                      "λ") nil)))))))
 
 ;; CoffeeScript
 (custom-set-variables '(coffee-tab-width 2))
@@ -93,27 +98,48 @@
   (add-to-list 'auto-mode-alist '("\\.hbs?\\'" . web-mode))
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
-  (setq web-mode-markup-indent-offset 2)
-)
+  (setq web-mode-markup-indent-offset 2))
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 
 ;; yasnippet
 (yas-global-mode 1)
-
-;; ;; Auto-complete
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-;; (ac-set-trigger-key "TAB")
-;; (ac-set-trigger-key "<tab>")
-
-;; ;; Auto-complete hooks
-;; (add-hook 'js2-mode-hook (lambda () (interactive) (auto-complete-mode)))
-;; (add-hook 'coffee-mode-hook (lambda () (interactive) (auto-complete-mode)))
-;; (add-hook 'ruby-mode-hook (lambda () (interactive) (auto-complete-mode)))
-;; (add-hook 'scss-mode-hook (lambda () (interactive) (auto-complete-mode)))
 
 ;; Keep the good whitespace
 (setq require-final-newline t)
 
 ;; Clean Whitespace handling
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Use right Option key to insert UTF-8 symbols like ¥ ü etc,
+(setq ns-right-option-modifier 'option)
+
+;; enable lozenge for Pollen
+;; ◊◊◊◊◊◊◊◊◊◊◊◊◊
+;; 'mule-unicode part from
+;; https://lists.gnu.org/archive/html//emacs-devel/2005-03/msg01187.html
+(defun insert-lozenge ()
+  "inserts the lozenge character for use with Pollen"
+  ;; enables function through M-x
+  (interactive)
+  ;; insert the proper character
+  (insert (make-char
+           'mule-unicode-2500-33ff 34 42)))
+
+;; Racket mode
+;; ===========
+;; This will set M-\ as the λ character
+;; This will set M-] as the ◊ character for Pollen
+;; Switches on unicode-input
+(require 'racket-mode)
+(defun my-racket-mode-hook ()
+  (racket-unicode-input-method-enable)
+  (global-set-key "\M-\\" 'racket-insert-lambda)
+  (global-set-key "\M-\]" 'insert-lozenge))
+
+(add-hook 'racket-mode-hook 'my-racket-mode-hook)
+(add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+
+;; Prevents .rkt from opening in Geiser
+;; (This will open .pm, .pmd and .pp files in Racket mode (for Pollen))
+(add-to-list 'auto-mode-alist '("\\.rkt?\\'" . racket-mode))
+(add-to-list 'auto-mode-alist '("\\.p[pmd]+\\'" . racket-mode))
