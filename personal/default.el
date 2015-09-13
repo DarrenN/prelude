@@ -116,7 +116,6 @@
 ;; Racket mode
 ;; ===========
 ;; This will set M-\ as the λ character
-;; This will set M-] as the ◊ character for Pollen
 ;; Switches on unicode-input
 (require 'racket-mode)
 (defun my-racket-mode-hook ()
@@ -127,8 +126,9 @@
 (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
 
 ;; Prevents .rkt from opening in Geiser
-;; (This will open .pm, .pmd and .pp files in Racket mode (for Pollen))
 (add-to-list 'auto-mode-alist '("\\.rkt?\\'" . racket-mode))
+
+;; (This will open .pm, .pmd and .pp files in Racket mode (for Pollen))
 (add-to-list 'auto-mode-alist '("\\.p[pmd]+\\'" . racket-mode))
 
 ;; Enable lozenge for Pollen files
