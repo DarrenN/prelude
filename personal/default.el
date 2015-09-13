@@ -113,7 +113,25 @@
 ;; Use right Option key to insert UTF-8 symbols like ¥ ü etc,
 (setq ns-right-option-modifier 'option)
 
-;; enable lozenge for Pollen
+;; Racket mode
+;; ===========
+;; This will set M-\ as the λ character
+;; This will set M-] as the ◊ character for Pollen
+;; Switches on unicode-input
+(require 'racket-mode)
+(defun my-racket-mode-hook ()
+  (racket-unicode-input-method-enable)
+  (global-set-key "\M-\\" 'racket-insert-lambda))
+
+(add-hook 'racket-mode-hook 'my-racket-mode-hook)
+(add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
+
+;; Prevents .rkt from opening in Geiser
+;; (This will open .pm, .pmd and .pp files in Racket mode (for Pollen))
+(add-to-list 'auto-mode-alist '("\\.rkt?\\'" . racket-mode))
+(add-to-list 'auto-mode-alist '("\\.p[pmd]+\\'" . racket-mode))
+
+;; Enable lozenge for Pollen files
 ;; ◊◊◊◊◊◊◊◊◊◊◊◊◊
 ;; 'mule-unicode part from
 ;; https://lists.gnu.org/archive/html//emacs-devel/2005-03/msg01187.html
@@ -125,21 +143,5 @@
   (insert (make-char
            'mule-unicode-2500-33ff 34 42)))
 
-;; Racket mode
-;; ===========
-;; This will set M-\ as the λ character
-;; This will set M-] as the ◊ character for Pollen
-;; Switches on unicode-input
-(require 'racket-mode)
-(defun my-racket-mode-hook ()
-  (racket-unicode-input-method-enable)
-  (global-set-key "\M-\\" 'racket-insert-lambda)
-  (global-set-key "\M-\]" 'insert-lozenge))
-
-(add-hook 'racket-mode-hook 'my-racket-mode-hook)
-(add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
-
-;; Prevents .rkt from opening in Geiser
-;; (This will open .pm, .pmd and .pp files in Racket mode (for Pollen))
-(add-to-list 'auto-mode-alist '("\\.rkt?\\'" . racket-mode))
-(add-to-list 'auto-mode-alist '("\\.p[pmd]+\\'" . racket-mode))
+;; Set the lozenge char on M-] globally
+(global-set-key "\M-\]" 'insert-lozenge)
