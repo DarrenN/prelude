@@ -125,6 +125,10 @@
 (add-hook 'racket-mode-hook 'my-racket-mode-hook)
 (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable)
 
+;; Add Paredit
+(add-hook 'racket-mode-hook 'paredit-mode)
+(add-hook 'racket-repl-mode-hook 'paredit-mode)
+
 ;; Prevents .rkt from opening in Geiser
 (add-to-list 'auto-mode-alist '("\\.rkt?\\'" . racket-mode))
 
